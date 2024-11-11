@@ -55,7 +55,7 @@ data StatusInfo = StatusInfo
 instance Validity StatusInfo where
   validate StatusInfo {siName, siParent} =
     let name' = Text.strip siName
-        noNewlines = not $ Text.elem '\n' siName
+        noNewlines = not $ Text.any (== '\n') siName
         nameOk = noNewlines && Text.length name' > 0 && siName == name'
      in mconcat
           [ check nameOk "the process name"
